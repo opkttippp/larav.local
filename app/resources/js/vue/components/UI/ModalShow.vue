@@ -49,15 +49,15 @@ export default {
 
 .modal {
     background: #FFFFFF;
-    /*overflow-x: auto;*/
     display: flex;
     vertical-align: middle;
     flex-direction: column;
     margin-left: 24%;
     margin-top: 12%;
-    width: 460px;
+    width: auto;
     height: auto;
     min-width: 50%;
+    border-radius: 0.5em;
 }
 
 .modal-header,

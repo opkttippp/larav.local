@@ -36,6 +36,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $requestData['name'],
             'email' => $requestData['email'],
+            'avatar' => 'public/avatar/guest.jpg',
             'status' => User::STATUS_INACTIVE,
             'password' => Hash::make($requestData['password']),
         ]);

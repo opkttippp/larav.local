@@ -22,9 +22,9 @@ body {
     background-attachment: fixed;
     margin: 0;
     padding: 0;
-    /*font-family: verdana, a}rial, sans-serif;*/
-    font: 0.9em/1.2 Arial, Helvetica, sans-serif;
+    font: 0.9em/1.2 BlinkMacSystemFont,-apple-system,Arial,Segoe UI,Roboto,Helvetica,sans-serif;
     color: #1d2124;
+    overflow-x: hidden;
 }
 
 html,

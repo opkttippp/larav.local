@@ -10,7 +10,7 @@
             >
                 <div class="image">
                     <img class="img-fluid rounded-5" :src="'http://larav.local/storage/' + message.user.avatar"
-                         style="width: 2rem;" alt="photo">
+                         style="width: 2rem; height: 2rem;" alt="photo">
                 </div>
 
                 <div class="message-main"

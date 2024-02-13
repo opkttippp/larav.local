@@ -27,13 +27,22 @@ export const auth = {
             // commit('loginSuccess', AuthService.loginOauth(data));
             // return AuthService.loginOauth(data);
             const response = AuthService.loginOauth(data);
-            console.log(response)
             if (response.errors) {
                 commit('loginFailure', response.message);
             } else {
                 commit('loginSuccess', response);
                 return response;
             }
+        },
+        updateUser({commit}) {
+            return AuthService.updateUser().then((response) => {
+                if (response.errors) {
+                    commit('loginFailure', response.message);
+                } else {
+                    commit('loginSuccess', response);
+                    return response;
+                }
+            });
         },
         logout({commit}) {
             AuthService.logout();

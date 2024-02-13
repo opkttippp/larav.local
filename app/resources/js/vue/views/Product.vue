@@ -51,6 +51,17 @@
                           to cart
                         <i class="fas fa-cart-arrow-down"></i>
                     </button>
+<!--                            <div class="rz-banner__button">-->
+<!--                  <a target="_blank" href="https://rozetka.com.ua/lenovo-zach0101ua/p393033699/" class="exponea-banner__wishlistpromo rz-button__link">-->
+
+<!--                      <div class="rz-button__big rz-button__submit rz-button__green">Купити</div>-->
+<!--                    <div class="rz-button__small">-->
+<!--                      <img-->
+<!--                           :src="'http://larav.local/storage/public/images/cart_2.png'">-->
+
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                </div>-->
                 </span>
                     </div>
                 </div>
@@ -178,13 +189,13 @@ export default {
 <style scoped>
 #grid {
     display: grid;
-    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns:repeat(auto-fill, minmax(20em, 1fr));
 }
 
 #grid > div {
-    margin: 2em;
     background: white;
-    box-shadow: 0 0 0 1px darkgrey;
+    border-bottom: 1px solid #d2d2d2;
+    border-right: 1px solid #d2d2d2;
 }
 
 #inner-grid {

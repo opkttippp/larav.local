@@ -34,6 +34,8 @@ class OrderApiController extends Controller
                 'product_id' => $product['id'],
                 'price' => $product['price'],
                 'quantity' => $product['amount'],
+                'title' => $product['title'],
+                'image' => $product['image'],
                 ]);
             $OrderItem->item()->save($Item);
         }
@@ -42,7 +44,14 @@ class OrderApiController extends Controller
 
     public function show($id)
     {
-        //
+        $orders = Order::Where('user_id', $id)->get();
+        $result = [];
+        foreach ($orders as $order) {
+            $order->item = $order->item()->get();
+            $result[] = $order;
+        }
+
+        return response()->json($result);
     }
 
     public function edit($id)

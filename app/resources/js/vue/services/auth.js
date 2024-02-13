@@ -19,6 +19,18 @@ class Auth {
             return data.user;
     }
 
+    updateUser() {
+        return axios.get('http://larav.local/api/auth')
+            .then((res) => {
+                window.localStorage.setItem('user', JSON.stringify(res.data));
+                return res.data;
+            })
+            .catch(error => {
+                return error.response.data;
+            });
+
+    }
+
     register(data) {
         return axios.post('http://larav.local/api/register', data).then((res) => {
             window.localStorage.setItem('token', res.data.access_token);

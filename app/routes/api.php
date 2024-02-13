@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\ChatApiController;
 use App\Http\Controllers\Api\ForgotPasswordController;
 use App\Http\Controllers\Api\ManufacturApiController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrderApiController;
 use App\Http\Controllers\Api\ProductApiController;
+use App\Http\Controllers\Api\ResetPasswordAccountController;
 use App\Http\Controllers\Api\ReviewApiController;
 use App\Http\Controllers\Api\SearchApiController;
 use App\Http\Controllers\Api\UserApiController;
@@ -22,6 +24,12 @@ Route::middleware('auth:api')->get('/auth', function (Request $request) {
 
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail']);
 Route::post('/password/reset', [ResetPasswordController::class, 'reset']);
+Route::post('/password/account', [ResetPasswordAccountController::class, 'reset']);
+
+Route::patch('/account/update', [AccountController::class, 'update']);
+Route::post('/account/delete', [AccountController::class, 'delete']);
+
+
 
 Route::post('/email/verify/{user}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
 Route::post('/email/resend', [VerifyEmailController::class, 'resend']);
@@ -30,14 +38,7 @@ Route::post('/oauth/{driver}', [AuthController::class, 'redirectSocialAuth'])->m
 Route::get('/oauth/{driver}/callback', [AuthController::class, 'callbackSocialAuth'])->middleware('api-session');
 
 Route::post('/register', [AuthController::class, 'register']);
-
-//Route::post('verificationResend', function (Request $request) {
-//    $request->user()->SendEmailVerificationNotification();
-//    return $request->user();
-//})->middleware('auth')->name('verification.resend');
-
 Route::post('/login', [AuthController::class, 'login']);
-
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });

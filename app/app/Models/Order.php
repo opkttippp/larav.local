@@ -17,7 +17,9 @@ class Order extends Model
         'customerPhone',
         'customerAddress',
         'comment',
-        'total'
+        'total',
+        'payed',
+        'fulfilled'
     ];
 
     public function user()

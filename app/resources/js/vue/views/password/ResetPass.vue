@@ -9,11 +9,11 @@
                 </ul>
             </div>
 
-            <template v-if="status">
+            <div v-if="status">
                 <div class="alert alert-success" role="alert">
                     {{ status }}
                 </div>
-            </template>
+            </div>
 
             <header>Reset password</header>
             <form @submit.prevent="Reset">

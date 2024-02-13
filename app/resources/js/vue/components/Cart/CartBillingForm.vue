@@ -21,7 +21,7 @@
                         <div class="col-md-6">
                             <label for="lastname" class="form-label">Last Name</label>
                             <input v-model="this.lastname" type="text" class="form-control" id="lastname"
-                                   placeholder="Last Name" name="lastname">
+                                   placeholder="LastName" name="lastname">
                         </div>
                         <div class="col-12">
                             <label for="address" class="form-label">Address</label>

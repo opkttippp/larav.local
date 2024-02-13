@@ -1,7 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 
 import Home from "../../vue/views/Home";
-import VerifyMail from "../../vue/views/VerifyMail";
 import PageError from "../components/PageError";
 import Login from "../../vue/views/Login";
 import Category from "../../vue/views/Category";
@@ -12,9 +11,10 @@ import Show from "../../vue/views/Show";
 import Character from "../../vue/views/Character";
 import Review from "../../vue/views/Review";
 import Chat from "../../vue/views/Chat";
-import VerifySentEmail from "../views/verification/VerifySentEmail";
-import VerifyRespondEmail from "../views/verification/VerifyRespondEmail";
+import VerifyEmail from "../views/verification/VerifyEmail";
 import ResetPass from "../views/password/ResetPass";
+import Account from "../views/Account";
+import Orders from "../views/Cabinet/Orders";
 
 const routes = [
 
@@ -22,11 +22,6 @@ const routes = [
         path: '/',
         name: 'Home',
         component: Home,
-    },
-    {
-        path: '/verificationMail',
-        name: 'VerifyMail',
-        component: VerifyMail,
     },
     {
         path: '/login',
@@ -75,15 +70,22 @@ const routes = [
         name: 'Chat',
         component: Chat,
     },
-    // { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },
+    {
+        path: '/account',
+        name: 'Account',
+        component: Account,
+    },
+    {
+        path: '/cabinet/orders/',
+        name: 'Orders',
+        component: Orders,
+    },
+
     { path: '/password/reset/:token', name: 'password.reset', component: ResetPass },
-    // {path: '/email/verify', name: 'VerifySentEmail', component: VerifySentEmail},
-    {path: '/email/verify/:id', name: 'verification.verify', component: VerifyRespondEmail },
-    // {path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue')},
+    { path: '/email/verify/:id', name: 'verification.verify', component: VerifyEmail },
 
     { path: '/:pathMatch(.*)*', name: 'PageError', component: PageError }
     ];
-
 
     const router = createRouter({
         history: createWebHistory(process.env.BASE_URL),

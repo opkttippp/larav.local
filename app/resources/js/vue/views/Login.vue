@@ -75,9 +75,10 @@
                         <input type="text" v-model="user.login" required placeholder="Email or Login">
                     </div>
                     <div class="field space">
-                        <span class="fa fa-lock"></span>
+                        <span class="fa fa-lock"
+                              @click="Unclosed"></span>
                         <input type="password" v-model="user.password" class="pass-key" required placeholder="Password">
-                        <span class="show">SHOW</span>
+<!--                        <span class="show">SHOW</span>-->
                     </div>
                     <div class="pass">
                         <a class="btn btn-link" @click.stop="showEmailRequest">Forgot Password?</a>
@@ -144,12 +145,14 @@
                         <input id="email" type="email" v-model="userReg.email" required placeholder="Email">
                     </div>
                     <div class="field space">
-                        <span class="fa fa-lock"></span>
-                        <input id="pass" type="password" v-model="userReg.password" required placeholder="Password">
+                        <span class="fa fa-lock"
+                        @click="Unclosed"></span>
+                        <input class="pass-key" id="pass" type="password" v-model="userReg.password" required placeholder="Password">
                     </div>
                     <div class="field space">
-                        <span class="fa fa-lock"></span>
-                        <input id="password-confirm" type="password" v-model="userReg.password_confirmation" required placeholder="Confirm password">
+                        <span class="fa fa-lock"
+                        @click="Unclosed"></span>
+                        <input class="pass-key" id="password-confirm" type="password" v-model="userReg.password_confirmation" required placeholder="Confirm password">
                     </div>
                     <div class="field">
                         <input type="submit" value="REGISTER">
@@ -198,7 +201,6 @@ export default {
     computed: {
     },
     mounted() {
-        this.formfunction();
         window.addEventListener('message', this.onMessage, false);
     },
     beforeDestroy() {
@@ -239,20 +241,20 @@ export default {
             if (!this.errors.length)
                 return true;
         },
-        formfunction() {
-            const pass_field = document.querySelector('.pass-key');
-            const showBtn = document.querySelector('.show');
-            showBtn.addEventListener('click', function () {
-                if (pass_field.type === "password") {
-                    pass_field.type = "text";
-                    showBtn.textContent = "HIDE";
-                    showBtn.style.color = "#222";
-                } else {
-                    pass_field.type = "password";
-                    showBtn.textContent = "SHOW";
-                    showBtn.style.color = "#222";
-                }
-            });
+        Unclosed(e) {
+            const item = e.target;
+                    let pass_field = item.closest('.space').querySelector('.pass-key')
+                    if (pass_field.type === "password") {
+                        pass_field.type = "text";
+                        item.style.color = "green";
+                        item.classList.remove('fa-lock');
+                        item.classList.add('fa-lock-open');
+                    } else {
+                        pass_field.type = "password";
+                        item.classList.remove('fa-lock-open');
+                        item.classList.add('fa-lock');
+                        item.style.color = "black";
+                    }
         },
         loginUser() {
             this.errors = [];
@@ -285,21 +287,7 @@ export default {
             }
             return 'error sign up';
         },
-        authGoogle() {
-            window.location.href = 'http://larav.local/google/redirect';
 
-            return axios.get('http://larav.local/api/google/redirect', {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            })
-                .then(res => console.log(res))
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
         //-----------------------vue-authenticate--------------------------------
 
         async authenticate(provider) {

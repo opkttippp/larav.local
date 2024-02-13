@@ -1,5 +1,5 @@
 <template>
-    <div @click="isModal = true">Catalog</div>
+    <div @click="isModal = true">Каталог</div>
     <catalog-modal
         v-if="isModal"
         @close="close"
@@ -16,14 +16,23 @@ export default {
     components: {
         CatalogModal
     },
+    props: {
+        catalogModal: Boolean,
+    },
     data() {
         return {
-            isModal: false
+            isModal: false,
+        }
+    },
+    watch: {
+        catalogModal() {
+            this.isModal = true;
         }
     },
     methods: {
         close() {
             this.isModal = false;
+            // this.$emit('closeCatalogModal') ;
         }
     }
 }

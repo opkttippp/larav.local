@@ -8,7 +8,7 @@
                 <div class="col-md-12 d-flex justify-content-around align-items-center">
                     <div>
                         <img class="image"  :src="'http://larav.local/storage/' + this.user.avatar"
-                             alt="images" >
+                             alt="images">
                     </div>
                         <div class="rating">
                         <input type="radio" id="star-1" name="rating" value="5" v-model="status">
