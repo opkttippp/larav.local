@@ -4,10 +4,10 @@
         <div class="container">
             <div class="container-user" style="display: flex; align-items: center;">
                 <div>
-                    <a href="#" class="icon-site">
-                        <img style="width:auto; height: 30px;" alt="Відкриті клитки "
-                             src='https://opencages.com.ua/_nuxt/img/logo-light.9a60eb5.svg'>
-                    </a>
+<!--                    <a href="#" class="icon-site">-->
+<!--                        <img style="width:auto; height: 30px;" alt="Відкриті клитки "-->
+<!--                             src='https://opencages.com.ua/_nuxt/img/logo-light.9a60eb5.svg'>-->
+<!--                    </a>-->
                 </div>
                 <ul class="menu-user">
                     <li>
@@ -269,7 +269,7 @@ export default {
     height: 400px;
     padding: 0;
     font-family: 'Raleway', sans-serif;
-    background-image: url('https://opencages.com.ua/_nuxt/img/homepage.0151b74.jpg.webp');
+    //background-image: url('https://opencages.com.ua/_nuxt/img/homepage.0151b74.jpg.webp');
     background-size: cover;
     background-attachment: fixed;
 }

@@ -140,7 +140,9 @@ export default {
             this.isInfoPopupVisible = true
         },
         closePopupInfo() {
-            this.isInfoPopupVisible = false
+            this.isInfoPopupVisible = false;
+            this.subject = '';
+            this.review = '';
         },
         sendReview() {
             return axios.post('http://larav.local/api/review',

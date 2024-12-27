@@ -294,14 +294,13 @@ export default {
             const newWindow = openWindow('', '_blank');
 
             const {data} = await axios.post(`/api/oauth/${provider}`)
-            // console.log(data);
             newWindow.location.href = data.url
         },
         onMessage(e) {
+            console.log(e.data);
             if (e.origin !== window.origin || !e.data.access_token) {
                 return
             }
-            // console.log(e.data);
             this.$store.dispatch('auth/loginOauth', {
                 token: e.data.access_token,
                 user: e.data.user,
@@ -339,7 +338,6 @@ function openWindow(url, title, options = {}) {
     if (window.focus) {
         newWindow.focus()
     }
-
     return newWindow
 }
 </script>

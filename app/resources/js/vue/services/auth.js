@@ -61,10 +61,11 @@ class Auth {
     }
 
     logout() {
-        axios.post('http://Larav.local/api/logout')
-            .then(() => {
+        axios.post('https://1fe5-195-78-100-186.ngrok-free.app/api/logout')
+            .then((res) => {
                 window.localStorage.removeItem('user');
                 window.localStorage.removeItem('token');
+                console.log(res);
             })
             .catch((error) => {
                 console.log(error);

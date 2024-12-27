@@ -59,29 +59,35 @@ export default {
     },
     methods: {
         async Reset() {
-            this.loginValidator();
-            const {data} = await axios.post('http://larav.local/api/password/reset', {
-                token: this.form.token,
-                email: this.form.email,
-                password: this.form.password,
-                password_confirmation: this.form.password_confirmation,
-            });
-            this.status = await data.status;
-            setTimeout(() => {
-                this.status = '';
-                this.$router.push('/login');
-            }, 3000)
+            if (!this.loginValidator()){
+                await axios.post('http://larav.local/api/password/reset', {
+                    token: this.form.token,
+                    email: this.form.email,
+                    password: this.form.password,
+                    password_confirmation: this.form.password_confirmation,
+                }).then((res) => {
+                    this.status = res.status;
+                    setTimeout(() => {
+                        this.status = '';
+                        this.$router.push('/login');
+                    }, 3000)
+                }).catch((error) => {
+                    let errors = error.response.data.errors.password;
+                    errors.forEach((error) => {
+                        this.errors.push(error);
+                    });
+                });
+            }
         },
         loginValidator() {
             this.errors = [];
-            if (!this.form.password || this.form.password.length < 8) {
-                this.errors.push('The password field less than 8 characters...');
+            if (!this.form.password || this.form.password.length < 5) {
+                this.errors.push('The password field less than 5 characters...');
             }
             if (this.form.password !== this.form.password_confirmation) {
                 this.errors.push('Passwords mismatch...');
             }
-            if (!this.errors.length)
-                return true;
+            return this.errors.length;
         },
     }
 }

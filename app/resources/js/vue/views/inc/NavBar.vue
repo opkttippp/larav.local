@@ -125,16 +125,13 @@
                             </a>
                         </li>
                         <li class="side-menu__item">
-                            <a class="side-menu__item_link">
+                            <a class="side-menu__item_link"
+                            @click="logout">
                                 Выход из аккаунта
                             </a>
                         </li>
                     </ul>
-
-
                 </div>
-
-
             </div>
         </div>
 
@@ -352,13 +349,14 @@ export default {
             e.target.classList.toggle('animate__headShake');
         },
         logout() {
-            this.$store.dispatch("auth/logout").then(
-                () => {
-                    this.$router.push("/")
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+                return this.$store.dispatch("auth/logout").then(
+                    () => {
+                        this.user = {}
+                        this.$router.push('/');
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
         },
         filter(data) {
             return this.$store.dispatch('product/SET_FILTER', data).then(() => this.$store.dispatch('product/GET_FILTER')).then(() => this.$router.push('/product/filter'));

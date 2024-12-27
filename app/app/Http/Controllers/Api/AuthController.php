@@ -101,10 +101,19 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        if (!$request->user()->email || !$request->user()->password) {
+            $this->delUserWithoutEmail($request->user()->id);
+        }
+
         $token = $request->user()->token();
         $token->revoke();
         $response = ['message' => 'You have been successfully logged out!'];
         return response($response, 200);
+    }
+
+    public function delUserWithoutEmail($userId)
+    {
+        return User::findOrFail($userId)->delete();
     }
 
     public function redirectSocialAuth($provider)
@@ -120,8 +129,8 @@ class AuthController extends Controller
         try {
             $user = Socialite::driver($provider)->user();
         } catch (Exception $e) {
-            return redirect('/login');
-//            return response()->json($e->getMessage());
+//            return redirect('/login');
+            return response()->json($e->getMessage());
         }
 
         $authUser = $this->findOrCreateUser($user, $provider);
@@ -138,42 +147,31 @@ class AuthController extends Controller
 
     private function findOrCreateUser($socialUser, $provider)
     {
-        $user = User::firstOrNew(
-            [
-                'email' => $socialUser->email,
-            ],
-            [
+        if ($socialUser->email) {
+            $user =  User::where('email', $socialUser->email)->first();
+
+            $user->update([
+                'provider' => $provider,
+                'provider_id' => $socialUser->id,
+                'access_token' => $socialUser->token,
+            ]);
+        } else {
+            $user = User::create([
                 'name' => $socialUser->name,
                 'email' => $socialUser->email ?? null,
                 'avatar' => 'public/avatar/guest.jpg',
                 'provider' => $provider,
                 'provider_id' => $socialUser->id,
                 'access_token' => $socialUser->token,
-            ]
-        );
+            ]);
+        }
+
+        if ($socialUser->email && !$user->hasVerifiedEmail()
+        ) {
+            $user->markEmailAsVerified();
+            $user->status = 1;
+        }
         $user->save();
         return $user;
     }
-//        $user = User::where('email', $socialUser->email)->orWhere('access_token', $socialUser->token)->first();
-//
-//        if ($user) {
-//            return $user;
-//        } else {
-//            $user = User::create([
-//                'name' => $socialUser->name,
-//                'email' => $socialUser->email ?? '',
-//                'avatar' => 'public/avatar/guest.jpg',
-//                'provider' => $provider,
-//                'provider_id' => $socialUser->id,
-//                'access_token' => $socialUser->token,
-//            ]);
-//            if (($socialUser->email !== '') && $socialUser->email
-//                && !$user->hasVerifiedEmail()
-//            ) {
-//                $user->markEmailAsVerified();
-//                $user->status = 1;
-//            }
-//            $user->save();
-//            return $user;
-//        }
 }

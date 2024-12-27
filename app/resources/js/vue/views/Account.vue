@@ -239,7 +239,7 @@
         > Удалить аккаунт
         </button>
         <button type="button" class="button button--medium button--link"
-                @click="this.Logout"
+                @click="Logout"
         > Выход
         </button>
     </div>

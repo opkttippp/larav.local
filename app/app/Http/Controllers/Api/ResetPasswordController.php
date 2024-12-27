@@ -29,5 +29,4 @@ class ResetPasswordController extends Controller
     {
         return response()->json(['email' => trans($response)], 400);
     }
-
 }
